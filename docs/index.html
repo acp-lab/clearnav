@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClearNav — Perception-Aligned Quadrotor Flight</title>
+  <meta name="description" content="ClearNav: a differentiable-physics navigation policy for quadrotors in cluttered environments — faster and 65% fewer collisions, on a single depth camera.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js"></script>
+  <style>
+    body { margin: 0; background: #f6f8fa; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 24px; }
+    .markdown-body {
+      background: #fff;
+      padding: 40px 48px;
+      border-radius: 6px;
+      border: 1px solid #d0d7de;
+      box-sizing: border-box;
+    }
+    .markdown-body .highlight pre, .markdown-body pre { background: #f6f8fa; }
+    .error { color: #a40126; }
+    .yt-embed {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 0 0 16px 0;
+    }
+    .yt-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    @media (max-width: 700px) { .markdown-body { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="markdown-body" id="content">
+      <p>Loading…</p>
+    </article>
+  </div>
+  <script>
+    const README_URLS = [
+      "https://raw.githubusercontent.com/acp-lab/clearnav/main/README.md",
+      "../README.md"
+    ];
+    async function loadReadme() {
+      for (const url of README_URLS) {
+        try {
+          const res = await fetch(url, { cache: "no-cache" });
+          if (res.ok) return await res.text();
+        } catch (e) { /* try next */ }
+      }
+      throw new Error("Could not fetch README.md");
+    }
+    loadReadme()
+      .then(md => {
+        document.getElementById("content").innerHTML =
+          DOMPurify.sanitize(marked.parse(md));
+        const base = "https://raw.githubusercontent.com/acp-lab/clearnav/main/";
+        // Swap the video thumbnail link for a real YouTube iframe embed
+        const videoLink = document.querySelector('#content a[href*="youtube.com/watch"], #content a[href*="youtu.be/"]');
+        if (videoLink) {
+          const href = videoLink.getAttribute("href");
+          const match = href.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+          if (match) {
+            const iframe = document.createElement("iframe");
+            iframe.src = "https://www.youtube.com/embed/" + match[1];
+            iframe.title = videoLink.getAttribute("aria-label") || "ClearNav demonstration";
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+            iframe.allowFullscreen = true;
+            iframe.referrerPolicy = "strict-origin-when-cross-origin";
+            const embed = document.createElement("div");
+            embed.className = "yt-embed";
+            embed.appendChild(iframe);
+            videoLink.replaceWith(embed);
+          }
+        }
+        const base = "https://raw.githubusercontent.com/acp-lab/clearnav/main/";
+        document.querySelectorAll("#content img").forEach(img => {
+          const src = img.getAttribute("src") || "";
+          if (src && !/^(https?:)?\/\//.test(src)) {
+            img.setAttribute("src", base + src.replace(/^\.\//, ""));
+          }
+        });
+      })
+      .catch(err => {
+        document.getElementById("content").innerHTML =
+          '<p class="error">Failed to load README.md: ' + err.message + '</p>';
+      });
+  </script>
+</body>
+</html>

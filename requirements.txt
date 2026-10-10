@@ -1,0 +1,32 @@
+pyyaml
+cmake==3.14.4
+attrs==25.3.0
+gitpython
+imageio==2.37.0
+imageio-ffmpeg==0.6.0
+matplotlib==3.9.4
+numba==0.60.0
+numpy==1.23.5
+numpy-quaternion==2023.0.4
+pillow==11.3.0
+scipy==1.13.1
+tqdm==4.67.1
+setuptools==75.8
+gdown
+
+stable-baselines3==2.2.1
+opencv-python==4.11.0.86
+dacite==1.9.2
+open3d==0.19.0
+scikit-fmm==2025.1.29
+tensorboard==2.12.1
+pylogtools @ git+https://github.com/rislab/pylogtools.git@0.1.0
+torchviz @ git+https://github.com/rislab/pytorchviz.git@f2321b2c4278bc08abe5f43db53e741968f323b5
+
+--index-url https://download.pytorch.org/whl/cu129
+--extra-index-url https://pypi.org/simple
+
+torch==2.8.0
+torchvision==0.23.0
+torchaudio==2.8.0
+trimesh>=4.0

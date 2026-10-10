@@ -1,0 +1,108 @@
+env_class: navigation_env
+env:
+  num_envs: 16
+  seed: 42
+  visual: True
+  single_env: True
+  device: cuda
+  base_action: [0., 0., 0.]
+  robot_radius: 0.3
+  max_episode_steps: 600
+  random_kwargs:
+    safe_spawn_radius: 1.0
+    min_starting_distance_to_target: 1.0
+    position:
+      class: uniform
+      mean: [0., 0., 1.5]
+      half: [10., 10., 1.]
+    velocity:
+      class: uniform
+      mean: [0., 0., 0.]
+      half: [0.5, 0.5, 0.5]
+    rotation:
+      class: normal
+      mean: [0., 0., 0.]
+      half: [0., 0., 0.2]
+    target:
+      class: uniform
+      mean: [0., 0., 1.5]
+      half: [0., 0., 0.]
+    target_speed:
+      class: uniform
+      mean: [3.]
+      half: [2.]
+    velocity_noise:
+      class: normal
+      mean: [0., 0., 0.]
+      half: [0.05, 0.05, 0.05]
+    rotation_noise:
+      class: normal
+      mean: [0., 0., 0.]
+      half: [0.02, 0.02, 0.02]
+    gravity:
+      class: normal
+      mean: [0., 0., -9.81]
+      half: [0., 0., 1.5]
+  dynamics_kwargs:
+    action_type: thrust_world_frame
+    dt: 0.02
+    ctrl_dt: 0.02
+    ctrl_delay: 0.02
+    grad_decay: 0.92
+    exp_smoothing_factor: 12.
+    exp_smoothing_window_dt: 1.0
+    avg_velocity_window_dt: 2.0
+    vel_smoothing_factor: 0.8
+    enable_ctrl_smoothing: False
+    enable_air_drag: False
+    air_drag_theta_1: 0.1
+    air_drag_theta_2: 0.1
+  scene_kwargs:
+    path: configs/box_2
+    reload_scenes: True
+    load_geodesics: False
+    spawn_obstacles: False
+    seed: 1
+    uav_radius: 0.1
+    sensitive_radius: 5
+    collision_backend: cloud
+    cloud_sample_spacing: 0.02
+    cloud_boundary_mode: analytic
+  sensor_kwargs:
+    - sensor_type: depth
+      uuid: depth
+      resolution: [72, 128] # (H, W)
+      position: [0.08, 0, 0]
+      orientation: [0, 0, 0]
+      far: 20.
+      near: 0.25
+  target_kwargs:
+    success_radius: 0.1
+  reward_kwargs:
+    beta_1: 2.5
+    beta_2: -6
+    lambda_v: 4
+    lambda_c: 0
+    lambda_a: 0.01
+    lambda_j: 0.001
+    lambda_om: 0.3
+    lambda_yaw: 4.0
+    lambda_vmax: 1.0
+    falloff_dis: 1.0
+    lambda_speed_oa: 0.1
+    speed_oa_inflation: 0.2
+    lambda_slip: 0.5
+    yaw_lookahead_tau: 1.0
+
+train_bptt:
+  iterations: 500
+  learning_rate_init: 0.001
+  learning_rate_final: 0.0005
+  weight_decay: 0.01
+  horizon: 150
+  gamma: 1.0
+  log_interval: 50
+  eval_at_end_only: True
+  checkpoint_interval: 500
+  early_stop_reward_threshold: -150
+  device: cuda

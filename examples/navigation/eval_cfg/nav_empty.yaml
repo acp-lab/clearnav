@@ -1,0 +1,95 @@
+env_class: navigation_env
+env:
+  num_envs: 20
+  seed: 42
+  visual: True
+  single_env: True
+  device: cuda
+  base_action: [0., 0., 0.]
+  robot_radius: 0.25
+  max_episode_steps: 600
+  random_kwargs:
+    safe_spawn_radius: 0.1
+    min_starting_distance_to_target: 0.1
+    position:
+      class: uniform
+      mean: [-7.5, 0., 1.5]
+      half: [0, 0, 1.]
+    velocity:
+      class: uniform
+      mean: [0., 0., 0.]
+      half: [0.5, 0.5, 0.5]
+    rotation:
+      class: normal
+      mean: [0., 0., 0.]
+      half: [0., 0., 0.2]
+    target:
+      class: uniform
+      mean: [7.5, 0., 1.5]
+      half: [0, 0, 1.]
+    target_speed:
+      class: uniform
+      mean: [3.]
+      half: [2.]
+    velocity_noise:
+      class: normal
+      mean: [0., 0., 0.]
+      half: [0.05, 0.05, 0.05]
+    rotation_noise:
+      class: normal
+      mean: [0., 0., 0.]
+      half: [0.02, 0.02, 0.02]
+    gravity:
+      class: normal
+      mean: [0., 0., -9.81]
+      half: [0., 0., 1.5]
+  dynamics_kwargs:
+    action_type: thrust_world_frame
+    dt: 0.02
+    ctrl_dt: 0.02
+    ctrl_delay: 0.02
+    grad_decay: 0.92
+    exp_smoothing_factor: 12.
+    exp_smoothing_window_dt: 1.0
+    avg_velocity_window_dt: 2.0
+    vel_smoothing_factor: 2.
+    enable_ctrl_smoothing: True
+    enable_air_drag: False
+    air_drag_theta_1: 0.1
+    air_drag_theta_2: 0.1
+  scene_kwargs:
+    path: configs/box_2
+    reload_scenes: True
+    load_geodesics: False
+    spawn_obstacles: False
+    seed: 1
+    uav_radius: 0.1
+    sensitive_radius: 5
+    collision_backend: cloud
+    cloud_sample_spacing: 0.02
+    cloud_boundary_mode: analytic
+  sensor_kwargs:
+    - sensor_type: depth
+      uuid: depth
+      resolution: [72, 128] # (H, W)
+      position: [0.1, -0.02, -0.04] # eris02 extrinsics
+      orientation: [0, 0, 0]
+      far: 10.
+      near: 0.05
+  target_kwargs:
+    success_radius: 1.
+  reward_kwargs:
+    beta_1: 2.5
+    beta_2: -6
+    lambda_v: 1
+    lambda_c: 6
+    lambda_a: 0.01
+    lambda_j: 0.001
+    lambda_om: 0.3
+    lambda_yaw: 1.0
+    lambda_vmax: 1.0
+    falloff_dis: 1.0
+    lambda_speed_oa: 0.1
+    speed_oa_inflation: 0.2
+    lambda_slip: 0.5
+    yaw_lookahead_tau: 1.0
