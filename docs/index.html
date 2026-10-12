@@ -56,7 +56,6 @@
       .then(md => {
         document.getElementById("content").innerHTML =
           DOMPurify.sanitize(marked.parse(md));
-        const base = "https://raw.githubusercontent.com/acp-lab/clearnav/main/";
         // Swap the video thumbnail link for a real YouTube iframe embed
         const videoLink = document.querySelector('#content a[href*="youtube.com/watch"], #content a[href*="youtu.be/"]');
         if (videoLink) {
