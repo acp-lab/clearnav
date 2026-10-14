@@ -165,11 +165,13 @@ python examples/navigation/eval_visual.py \
 If you use this work in your research, kindly consider citing us:
 
 ```bibtex
-@article{azad2026clearnav,
-  title   = {ClearNav: Perception-Aligned Quadrotor Flight Using Differential-Physics},
-  author  = {Azad, Aditya and Huang, Arthur and Li, Guanrui},
-  journal = {arXiv preprint arXiv:2610.17419},
-  year    = {2026}
+@misc{azad2026clearnav,
+  title         = {{ClearNav}: Perception-Aligned Quadrotor Flight Using Differential-Physics},
+  author        = {Azad, Aditya and Huang, Arthur and Li, Guanrui},
+  year          = {2026},
+  eprint        = {2610.17419},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2610.17419}
 }
 ```
 
