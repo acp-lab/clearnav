@@ -8,7 +8,7 @@
 
 \* Equal Contribution
 
-[![Paper](https://img.shields.io/badge/Paper-red)](https://github.com/acp-lab/clearnav)
+[![Paper](https://img.shields.io/badge/Paper-arXiv-green)](https://arxiv.org/abs/2610.17419)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Code](https://img.shields.io/badge/Code-GitHub-8DA0CB?logo=github)](https://github.com/acp-lab/clearnav)
 
@@ -165,9 +165,13 @@ python examples/navigation/eval_visual.py \
 If you use this work in your research, kindly consider citing us:
 
 ```bibtex
+@article{azad2026clearnav,
+  title   = {ClearNav: Perception-Aligned Quadrotor Flight Using Differential-Physics},
+  author  = {Azad, Aditya and Huang, Arthur and Li, Guanrui},
+  journal = {arXiv preprint arXiv:2610.17419},
+  year    = {2026}
+}
 ```
-
-<!-- TODO: replace with the official bibtex once the paper is finalized -->
 
 ## 📄 License & Acknowledgements
 
